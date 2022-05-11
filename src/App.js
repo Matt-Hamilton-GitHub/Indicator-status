@@ -8,9 +8,12 @@ export default function App() {
   return (
     <Wrapper>
       <IndicatorDiv>
-        <Indicator value={increase}></Indicator>
+        <Indicator value={increase}>
+          <span>{increase}%</span>
+        </Indicator>
       </IndicatorDiv>
       <Increase
+        value={increase}
         onClick={() => {
           increase < 100 ? setIncrease(increase + 10) : setIncrease(increase);
         }}
@@ -34,6 +37,7 @@ const Wrapper = styled.div`
 `;
 
 const IndicatorDiv = styled.div`
+  position: relative;
   display: flex;
   background: #efefef;
   margin-left: 15px;
@@ -42,8 +46,20 @@ const IndicatorDiv = styled.div`
 `;
 
 const Indicator = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
   width: ${(props) => props.value}%;
   background: #f66b0e;
+
+  span {
+    position: absolute;
+    left: 50%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Increase = styled.div`
@@ -55,4 +71,5 @@ const Increase = styled.div`
   height: 40px;
   margin-left: 15px;
   cursor: pointer;
+  cursor: ${(props) => props.value === 100 && "unset"};
 `;
